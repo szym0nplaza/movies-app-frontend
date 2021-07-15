@@ -1,6 +1,7 @@
 import "./App.css";
 import Navbar from "../NavbarPanel/NavbarPanel";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import MovieCard from "../MovieCard/MovieCard";
 
 function App() {
   return (

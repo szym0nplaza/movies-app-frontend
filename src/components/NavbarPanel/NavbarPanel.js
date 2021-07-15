@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import AdminPanel from "../AdminPanel/AdminPanel";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,8 @@ export default function NavbarPanel() {
   return (
     <div className="navbar-panel">
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
+        <Container fluid>
+          <Image src="/icons/cinema.svg" style={{ marginRight: "30px" }} />
           <Navbar.Brand as={Link} to="/">
             Movies-App
           </Navbar.Brand>
