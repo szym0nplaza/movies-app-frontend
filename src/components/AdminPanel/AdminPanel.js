@@ -1,0 +1,24 @@
+import React from "react";
+import { NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+export default function AdminPanel() {
+  return (
+    <div>
+      <NavDropdown title="Admin Panel" id="collasible-nav-dropdown">
+        <NavDropdown.Item as={Link} to="manage-users">
+          Manage Users
+        </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="manage-movies">
+          Movies
+        </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="manage-actors">
+          Actors
+        </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="manage-directors">
+          Directors
+        </NavDropdown.Item>
+      </NavDropdown>
+    </div>
+  );
+}
