@@ -1,9 +1,11 @@
 import "./App.css";
 import Navbar from "../NavbarPanel/NavbarPanel";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MoviesGrid from "../MoviesGrid/MoviesGrid";
 import DirectorsGrid from "../DirectorsGrid/DirectorsGrid";
 import ActorsGrid from "../ActorsGrid/ActorsGrid";
+import postData from "../../services/postData";
+import { useEffect, useState } from "react";
 
 function App() {
   return (
