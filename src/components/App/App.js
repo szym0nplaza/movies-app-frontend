@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MoviesGrid from "../MoviesGrid/MoviesGrid";
 import DirectorsGrid from "../DirectorsGrid/DirectorsGrid";
 import ActorsGrid from "../ActorsGrid/ActorsGrid";
-import postData from "../../services/postData";
-import { useEffect, useState } from "react";
+import MovieDetailsCard from "../MovieDetailsCard/MovieDetailsCard";
 
 function App() {
   return (
@@ -16,6 +15,7 @@ function App() {
           <Route exact path="/" component={MoviesGrid} />
           <Route path="/actors" component={ActorsGrid} />
           <Route path="/directors" component={DirectorsGrid} />
+          <Route path="/movie-details/:slug" component={MovieDetailsCard} />
         </Switch>
       </Router>
     </div>

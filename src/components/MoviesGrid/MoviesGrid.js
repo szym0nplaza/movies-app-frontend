@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import { Container, Row, Col } from "react-bootstrap";
+import fetchData from "../../services/fetchData";
 
 export default function MoviesGrid() {
-  const movies = [
-    {
-      title: "Gladiator",
-      director: "Ridley Scott",
-      yop: "2000-09-15",
-      imgurl:
-        "https://www.rp.pl/apps/pbcsi.dll/storyimage/RP/20201126/ROH/311269936/AR/0/AR-311269936.jpg?imageversion=Artykul&lastModified=",
-    },
-  ];
+  const [movies, setMovies] = useState([]);
 
+  useEffect(() => {
+    const data = async () => {
+      const movie = await fetchData("http://127.0.0.1:8000/api/movies/");
+      setMovies(movie);
+    };
+    data();
+  }, []);
   return (
     <Container fluid="md">
       <Row>

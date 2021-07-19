@@ -1,17 +1,19 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 
-export default function PersonList({ person: { name, imgurl, dob } }) {
+export default function PersonList({
+  person: { id, name, image, date_of_birth },
+}) {
   return (
     <Card style={{ margin: "10px 0" }}>
       <Card.Img
         variant="top"
-        src={imgurl}
+        src={`http://127.0.0.1:8000${image}`}
         style={{ objectFit: "cover", height: "30rem" }}
       />
       <Card.Body>
         <Card.Title style={{ fontSize: "1.5rem" }}>{name}</Card.Title>
-        <Card.Text>Date of birth: {dob}</Card.Text>
+        <Card.Text>Date of birth: {date_of_birth}</Card.Text>
         <Button variant="info" style={{ color: "#FFFFFF", width: "35%" }}>
           Read more
         </Button>
