@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PersonCard from "../PersonCard/PersonCard";
+import DirectorCard from "../DirectorCard/DirectorCard";
 import { Container, Col, Row } from "react-bootstrap";
 import fetchData from "../../services/fetchData";
 
@@ -16,9 +16,9 @@ export default function DirectorsGrid() {
   return (
     <Container fluid="md">
       <Row>
-        {directors.map((director) => (
-          <Col lg={4} md={6} sm={12}>
-            <PersonCard person={director} />
+        {directors.map((director, index) => (
+          <Col lg={4} md={6} sm={12} key={index}>
+            <DirectorCard person={director} />
           </Col>
         ))}
       </Row>

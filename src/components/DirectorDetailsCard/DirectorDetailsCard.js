@@ -1,45 +1,45 @@
+import { Button, Spinner } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import fetchData from "../../services/fetchData";
 
-export default function MovieDetailsCard() {
+export default function DirectorDetailsCard() {
   let { slug } = useParams();
-  const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState(null);
 
   useEffect(() => {
     const data = async () => {
       const detail = await fetchData(
-        `http://127.0.0.1:8000/api/movie-details/${slug}`
+        `http://127.0.0.1:8000/api/director-details/${slug}`
       );
       setDetails(detail);
     };
     data();
   }, []);
 
-  const { image, title, year_of_production, director, actors, description } =
-    details;
+  if (!details) {
+    return (
+      <Spinner
+        style={{ display: "block", margin: "5rem auto" }}
+        animation="border"
+        variant="info"
+      />
+    );
+  }
 
-  console.log(details);
+  const { name, image, date_of_birth } = details.director_info;
 
   return (
     <Card style={{ maxWidth: "50rem", margin: "2rem auto" }}>
-      <Card.Img
-        style={{ objectFit: "cover", height: "30rem" }}
-        variant="top"
-        src={`http://127.0.0.1:8000${image}`}
-      />
+      <Card.Img variant="top" src={`http://127.0.0.1:8000${image}`} />
       <Card.Body>
         <Card.Title style={{ fontSize: "2rem", margin: "0 0 1rem 1rem" }}>
-          {title}
+          {name}
         </Card.Title>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>
-            Year of production: {year_of_production}
-          </ListGroupItem>
-          <ListGroupItem>Director: {director}</ListGroupItem>
-          <ListGroupItem>Actors: {actors}</ListGroupItem>
-          <ListGroupItem>Description: {description}</ListGroupItem>
+          <ListGroupItem>Date of birth: {date_of_birth}</ListGroupItem>
+          <ListGroupItem>Movies: {details.movies}</ListGroupItem>
         </ListGroup>
         <Button
           style={{ color: "#FFFFFF", width: "100%", marginTop: "1rem" }}

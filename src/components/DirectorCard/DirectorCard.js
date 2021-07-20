@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default function PersonList({
+export default function DirectorCard({
   person: { id, name, image, date_of_birth },
 }) {
   return (
@@ -14,7 +15,12 @@ export default function PersonList({
       <Card.Body>
         <Card.Title style={{ fontSize: "1.5rem" }}>{name}</Card.Title>
         <Card.Text>Date of birth: {date_of_birth}</Card.Text>
-        <Button variant="info" style={{ color: "#FFFFFF", width: "35%" }}>
+        <Button
+          variant="info"
+          style={{ color: "#FFFFFF", width: "35%" }}
+          as={Link}
+          to={`director-details/${id}`}
+        >
           Read more
         </Button>
       </Card.Body>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import fetchData from "../../services/fetchData";
-import PersonCard from "../PersonCard/PersonCard";
+import ActorCard from "../ActorCard/ActorCard";
 
 export default function ActorsGrid() {
   const [actors, setActors] = useState([]);
@@ -18,7 +18,7 @@ export default function ActorsGrid() {
       <Row>
         {actors.map((actor) => (
           <Col lg={4} md={6} sm={12}>
-            <PersonCard person={actor} />
+            <ActorCard person={actor} />
           </Col>
         ))}
       </Row>

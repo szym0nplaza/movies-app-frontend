@@ -5,6 +5,7 @@ import MoviesGrid from "../MoviesGrid/MoviesGrid";
 import DirectorsGrid from "../DirectorsGrid/DirectorsGrid";
 import ActorsGrid from "../ActorsGrid/ActorsGrid";
 import MovieDetailsCard from "../MovieDetailsCard/MovieDetailsCard";
+import DirectorDetailsCard from "../DirectorDetailsCard/DirectorDetailsCard";
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
           <Route path="/actors" component={ActorsGrid} />
           <Route path="/directors" component={DirectorsGrid} />
           <Route path="/movie-details/:slug" component={MovieDetailsCard} />
+          <Route
+            path="/director-details/:slug"
+            component={DirectorDetailsCard}
+          />
         </Switch>
       </Router>
     </div>
