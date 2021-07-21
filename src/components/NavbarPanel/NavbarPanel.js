@@ -2,8 +2,11 @@ import React from "react";
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import AdminPanel from "../AdminPanel/AdminPanel";
 import { Link } from "react-router-dom";
+import LoginRegisterButton from "../LoginRegisterButton/LoginRegisterButton";
 
 export default function NavbarPanel() {
+  const is_admin = true;
+  const token = false;
   return (
     <div className="navbar-panel">
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -24,8 +27,9 @@ export default function NavbarPanel() {
               <Nav.Link as={Link} to="/directors">
                 Directors
               </Nav.Link>
-              <AdminPanel />
+              {is_admin ? <AdminPanel /> : <div />}
             </Nav>
+            <Nav>{token ? <div /> : <LoginRegisterButton />}</Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
