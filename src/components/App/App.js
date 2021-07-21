@@ -8,6 +8,7 @@ import MovieDetailsCard from "../MovieDetailsCard/MovieDetailsCard";
 import DirectorDetailsCard from "../DirectorDetailsCard/DirectorDetailsCard";
 import ActorDetailsCard from "../ActorDetailsCard/ActorDetailsCard";
 import LoginPage from "../LoginPage/LoginPage";
+import RegisterPage from "../RegisterPage/RegisterPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={MoviesGrid} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
           <Route path="/actors" component={ActorsGrid} />
           <Route path="/directors" component={DirectorsGrid} />
           <Route path="/movie-details/:slug" component={MovieDetailsCard} />

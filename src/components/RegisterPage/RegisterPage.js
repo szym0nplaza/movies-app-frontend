@@ -1,24 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link, Redirect, useHistory } from "react-router-dom";
-import postData from "../../services/postData";
+import { Link } from "react-router-dom";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
-
-  const validate = async (e) => {
-    e.preventDefault();
-    const responseData = await postData("http://127.0.0.1:8000/api/login/", {
-      email: email,
-      password: password,
-    });
-
-    const { token, is_admin } = responseData;
-    token ? history.push("/") : <div />;
-  };
-
+  const [password2, setPassword2] = useState("");
   return (
     <Form
       style={{
@@ -29,16 +16,14 @@ export default function LoginPage() {
         padding: "1.2rem 1rem",
         marginTop: "3rem",
       }}
-      onSubmit={validate}
     >
       <Form.Label
         style={{
           fontSize: "2rem",
           marginBottom: "1rem",
-          display: "block",
         }}
       >
-        <Form.Text>Login</Form.Text>
+        <Form.Text>Register</Form.Text>
       </Form.Label>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -57,15 +42,20 @@ export default function LoginPage() {
           onChange={(event) => setPassword(event.target.value)}
         />
       </Form.Group>
-      <Form.Label style={{ fontSize: "1.1rem", marginTop: "0.5rem" }}>
-        Don't have account?{" "}
-        <Link
-          to="/register"
-          style={{ textDecoration: "none", color: "rgb(13, 202, 240)" }}
-        >
-          Sing In
-        </Link>
-      </Form.Label>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Reapeat password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Repeat password"
+          onChange={(event) => setPassword2(event.target.value)}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check
+          type="checkbox"
+          label="i agree with terms and conditions which doesn't exist"
+        />
+      </Form.Group>
       <Button
         variant="info"
         style={{ color: "white", width: "100%", marginTop: "1rem" }}
