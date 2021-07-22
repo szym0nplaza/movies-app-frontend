@@ -42,7 +42,7 @@ export default function NavbarPanel() {
               {user === null ? (
                 <LoginRegisterButton />
               ) : (
-                <Nav.Link as={Link} to="manage-user">
+                <Nav.Link as={Link} to={`/account`}>
                   {user.email}
                 </Nav.Link>
               )}
