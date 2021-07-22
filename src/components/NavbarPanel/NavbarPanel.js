@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import AdminPanel from "../AdminPanel/AdminPanel";
 import { Link } from "react-router-dom";
 import LoginRegisterButton from "../LoginRegisterButton/LoginRegisterButton";
+import userContext from "../../context/userContext";
 
 export default function NavbarPanel() {
-  const is_admin = true;
-  const token = false;
+  const { user } = useContext(userContext);
+
+  const checkAdmin = () => {
+    if (user === null) {
+      return false;
+    }
+    if (user.is_admin) {
+      return <AdminPanel />;
+    }
+  };
   return (
     <div className="navbar-panel">
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -27,9 +36,17 @@ export default function NavbarPanel() {
               <Nav.Link as={Link} to="/directors">
                 Directors
               </Nav.Link>
-              {is_admin ? <AdminPanel /> : <div />}
+              {checkAdmin()}
             </Nav>
-            <Nav>{token ? <div /> : <LoginRegisterButton />}</Nav>
+            <Nav>
+              {user === null ? (
+                <LoginRegisterButton />
+              ) : (
+                <Nav.Link as={Link} to="manage-user">
+                  {user.email}
+                </Nav.Link>
+              )}
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

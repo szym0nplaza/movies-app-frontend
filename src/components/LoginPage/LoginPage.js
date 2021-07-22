@@ -25,7 +25,7 @@ export default function LoginPage() {
   };
   const checkData = () => {
     if (check === "Invalid data.") {
-      return <AlertView msg="Invalid email or password!" />;
+      return <AlertView type="danger" msg="Invalid email or password!" />;
     }
   };
 
