@@ -12,6 +12,7 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import userContext from "../../context/userContext";
 import userReducer from "../../reducers/userReducer";
 import { useReducer } from "react";
+import ManageUser from "../ManageUser/ManageUser";
 
 function App() {
   const [user, userDispatch] = useReducer(userReducer, null);
@@ -26,6 +27,7 @@ function App() {
             <Route path="/register" component={RegisterPage} />
             <Route path="/actors" component={ActorsGrid} />
             <Route path="/directors" component={DirectorsGrid} />
+            <Route path="/account" component={ManageUser} />
             <Route path="/movie-details/:slug" component={MovieDetailsCard} />
             <Route
               path="/director-details/:slug"
