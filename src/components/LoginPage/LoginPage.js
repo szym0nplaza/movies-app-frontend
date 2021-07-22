@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import postData from "../../services/postData";
+import AlertView from "../AlertView/AlertView";
+import userContext from "../../context/userContext";
 
 export default function LoginPage() {
+  const { userDispatch, user } = useContext(userContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [check, setCheck] = useState([]);
   const history = useHistory();
 
   const validate = async (e) => {
@@ -14,9 +18,15 @@ export default function LoginPage() {
       email: email,
       password: password,
     });
-
+    userDispatch({ type: "SET_USER", payload: responseData });
     const { token, is_admin } = responseData;
-    token ? history.push("/") : <div />;
+    setCheck(responseData);
+    if (token) history.push("/");
+  };
+  const checkData = () => {
+    if (check === "Invalid data.") {
+      return <AlertView msg="Invalid email or password!" />;
+    }
   };
 
   return (
@@ -31,6 +41,7 @@ export default function LoginPage() {
       }}
       onSubmit={validate}
     >
+      {checkData()}
       <Form.Label
         style={{
           fontSize: "2rem",

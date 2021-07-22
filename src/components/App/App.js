@@ -9,25 +9,31 @@ import DirectorDetailsCard from "../DirectorDetailsCard/DirectorDetailsCard";
 import ActorDetailsCard from "../ActorDetailsCard/ActorDetailsCard";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import userContext from "../../context/userContext";
+import userReducer from "../../reducers/userReducer";
+import { useReducer } from "react";
 
 function App() {
+  const [user, userDispatch] = useReducer(userReducer, null);
   return (
     <div className="App">
       <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={MoviesGrid} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/actors" component={ActorsGrid} />
-          <Route path="/directors" component={DirectorsGrid} />
-          <Route path="/movie-details/:slug" component={MovieDetailsCard} />
-          <Route
-            path="/director-details/:slug"
-            component={DirectorDetailsCard}
-          />
-          <Route path="/actor-details/:slug" component={ActorDetailsCard} />
-        </Switch>
+        <userContext.Provider value={{ user, userDispatch }}>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={MoviesGrid} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/actors" component={ActorsGrid} />
+            <Route path="/directors" component={DirectorsGrid} />
+            <Route path="/movie-details/:slug" component={MovieDetailsCard} />
+            <Route
+              path="/director-details/:slug"
+              component={DirectorDetailsCard}
+            />
+            <Route path="/actor-details/:slug" component={ActorDetailsCard} />
+          </Switch>
+        </userContext.Provider>
       </Router>
     </div>
   );
