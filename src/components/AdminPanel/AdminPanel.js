@@ -10,13 +10,13 @@ export default function AdminPanel() {
           Manage Users
         </NavDropdown.Item>
         <NavDropdown.Item as={Link} to="manage-movies">
-          Movies
+          Manage movies
         </NavDropdown.Item>
         <NavDropdown.Item as={Link} to="manage-actors">
-          Actors
+          Manage actors
         </NavDropdown.Item>
         <NavDropdown.Item as={Link} to="manage-directors">
-          Directors
+          Manage directors
         </NavDropdown.Item>
       </NavDropdown>
     </div>

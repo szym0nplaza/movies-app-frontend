@@ -12,7 +12,6 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import userContext from "../../context/userContext";
 import userReducer from "../../reducers/userReducer";
 import { useReducer } from "react";
-import ManageUser from "../ManageUser/ManageUser";
 import ManageUsers from "../ManageUsers/ManageUsers";
 import UsersGrid from "../UsersGrid/UsersGrid";
 import Account from "../Account/Account";

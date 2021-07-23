@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Card, Spinner } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import deleteData from "../../services/deleteData";
 import fetchData from "../../services/fetchData";
 import AlertView from "../AlertView/AlertView";
@@ -56,10 +56,15 @@ export default function ManageUsers() {
         <Card.Text>
           Is logged in: <b>{is_logged}</b>
         </Card.Text>
+      </Card.Body>
+      <Card.Footer style={{ display: "flex", justifyContent: "space-between" }}>
+        <Button variant="outline-info" as={Link} to="/manage-users">
+          Go back
+        </Button>
         <Button variant="outline-danger" onClick={deleteUser}>
           DELETE USER
         </Button>
-      </Card.Body>
+      </Card.Footer>
     </Card>
   );
 }
