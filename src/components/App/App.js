@@ -13,6 +13,8 @@ import userContext from "../../context/userContext";
 import userReducer from "../../reducers/userReducer";
 import { useReducer } from "react";
 import ManageUser from "../ManageUser/ManageUser";
+import ManageUsers from "../ManageUsers/ManageUsers";
+import UsersGrid from "../UsersGrid/UsersGrid";
 
 function App() {
   const [user, userDispatch] = useReducer(userReducer, null);
@@ -34,6 +36,8 @@ function App() {
               component={DirectorDetailsCard}
             />
             <Route path="/actor-details/:slug" component={ActorDetailsCard} />
+            <Route path="/manage-users" component={UsersGrid} />
+            <Route path="/manage-user/:slug" component={ManageUser} />
           </Switch>
         </userContext.Provider>
       </Router>
