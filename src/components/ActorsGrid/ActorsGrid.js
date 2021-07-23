@@ -16,8 +16,8 @@ export default function ActorsGrid() {
   return (
     <Container fluid="md">
       <Row>
-        {actors.map((actor) => (
-          <Col lg={4} md={6} sm={12}>
+        {actors.map((actor, index) => (
+          <Col lg={4} md={6} sm={12} key={index}>
             <ActorCard person={actor} />
           </Col>
         ))}

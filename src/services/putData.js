@@ -1,4 +1,4 @@
-const postData = async (url, data) => {
+const putData = async (url, data) => {
   const response = await fetch(url, {
     method: "PUT",
     headers: {
@@ -10,4 +10,4 @@ const postData = async (url, data) => {
   return json;
 };
 
-export default postData;
+export default putData;
