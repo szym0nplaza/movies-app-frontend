@@ -15,6 +15,9 @@ export default function RegisterPage() {
     if (!checkbox) {
       return null;
     }
+    if (password === "") {
+      return null;
+    }
     e.preventDefault();
     const responseData = await postData("http://127.0.0.1:8000/api/register/", {
       email: email,
@@ -45,12 +48,7 @@ export default function RegisterPage() {
       );
     }
     if (resposne === "Invalid data.") {
-      return (
-        <AlertView
-          type="danger"
-          msg="You passed invalid data or user with given email exists!"
-        />
-      );
+      return <AlertView type="danger" msg="User with given email exists!" />;
     }
     if (!checkbox) {
       return <AlertView type="danger" msg="Accept terms and contitions!" />;

@@ -22,6 +22,9 @@ export default function ManageUser() {
     if (password !== password2) {
       return null;
     }
+    if (password === "") {
+      return null;
+    }
     const responseData = await putData(
       `http://127.0.0.1:8000/api/manage-user/${user.id}/`,
       {
@@ -122,7 +125,7 @@ export default function ManageUser() {
         type="submit"
         style={{ color: "white", width: "100%", marginTop: "1rem" }}
       >
-        Submit
+        Update
       </Button>
       <Button
         variant="outline-danger"
