@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
+import {
+  Card,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import fetchData from "../../services/fetchData";
 
 export default function MovieDetailsCard() {
   let { slug } = useParams();
-  const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState(null);
 
   useEffect(() => {
     const data = async () => {
@@ -17,10 +23,12 @@ export default function MovieDetailsCard() {
     data();
   }, []);
 
+  if (!details) {
+    return <Spinner animation="border" variant="info" />;
+  }
+
   const { image, title, year_of_production, director, actors, description } =
     details;
-
-  console.log(details);
 
   return (
     <Card style={{ maxWidth: "50rem", margin: "2rem auto" }}>
@@ -38,7 +46,7 @@ export default function MovieDetailsCard() {
             Year of production: {year_of_production}
           </ListGroupItem>
           <ListGroupItem>Director: {director}</ListGroupItem>
-          <ListGroupItem>Actors: {actors}</ListGroupItem>
+          <ListGroupItem>Actors: {actors.join(", ")}</ListGroupItem>
           <ListGroupItem>Description: {description}</ListGroupItem>
         </ListGroup>
         <Button

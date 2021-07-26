@@ -140,6 +140,7 @@ export default function AddMovie() {
           style={{ marginLeft: "5px" }}
           onClick={() => {
             if (chosenActors.includes(actorNames)) return;
+            if (actorNames === "" || actorNames === "Choose actors") return;
             setChosenActors([...chosenActors, actorNames]);
           }}
         >
