@@ -15,6 +15,9 @@ import { useReducer } from "react";
 import ManageUsers from "../ManageUsers/ManageUsers";
 import UsersGrid from "../UsersGrid/UsersGrid";
 import Account from "../Account/Account";
+import ManageMovies from "../ManageMovies/ManageMovies";
+import { Container } from "react-bootstrap";
+import AddMovie from "../AddMovie/AddMovie";
 
 function App() {
   const [user, userDispatch] = useReducer(userReducer, null);
@@ -38,6 +41,8 @@ function App() {
             <Route path="/actor-details/:slug" component={ActorDetailsCard} />
             <Route path="/manage-users" component={UsersGrid} />
             <Route path="/user-settings/:slug" component={ManageUsers} />
+            <Route path="/manage-movies" component={ManageMovies} />
+            <Route path="/add-movie" component={AddMovie} />
           </Switch>
         </userContext.Provider>
       </Router>
