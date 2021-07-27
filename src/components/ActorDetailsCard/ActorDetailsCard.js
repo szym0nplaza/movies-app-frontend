@@ -38,7 +38,7 @@ export default function DirectorDetailsCard() {
         </Card.Title>
         <ListGroup className="list-group-flush">
           <ListGroupItem>Date of birth: {date_of_birth}</ListGroupItem>
-          <ListGroupItem>Movies: {details.movies}</ListGroupItem>
+          <ListGroupItem>Movies: {details.movies.join(", ")}</ListGroupItem>
         </ListGroup>
         <Button
           style={{ color: "#FFFFFF", width: "100%", marginTop: "1rem" }}
