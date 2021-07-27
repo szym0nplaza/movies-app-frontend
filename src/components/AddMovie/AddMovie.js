@@ -48,6 +48,9 @@ export default function AddMovie() {
     if (response === "Passed.") {
       return <Alert variant="success">Movie added successfully!</Alert>;
     }
+    if (response === "Movie exists.") {
+      return <Alert variant="danger">Movie exists!</Alert>;
+    }
     if (response !== null || response !== "Passed.") {
       return <Alert variant="danger">Inavlid data!</Alert>;
     }

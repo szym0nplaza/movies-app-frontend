@@ -52,7 +52,11 @@ export default function MovieSettings() {
   }
 
   if (response === "Deleted.")
-    return <Alert variant="danger">Movie {details.title} deleted.</Alert>;
+    return (
+      <Alert variant="danger" style={{ width: "35rem", margin: "2rem auto" }}>
+        Movie <b>{details.title}</b> deleted.
+      </Alert>
+    );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
