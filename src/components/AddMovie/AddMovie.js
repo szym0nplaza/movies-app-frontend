@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import fetchData from "../../services/fetchData";
 import postFormData from "../../services/postFormData";
 import ActorTile from "./ActorTile";
+import InfoButton from "../InfoButton/InfoButton";
 
 export default function AddMovie() {
   const [directors, setDirectors] = useState([]);
@@ -12,10 +13,9 @@ export default function AddMovie() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
-  const [day, setDay] = useState("");
+  const [date, setDate] = useState("");
   const [director, setDirector] = useState("");
+  const [response, setResponse] = useState(null);
 
   useEffect(() => {
     const data = async () => {
@@ -32,22 +32,35 @@ export default function AddMovie() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("year_of_production", `${year}-${month}-${day}`);
+    formData.append("year_of_production", date);
     formData.append("image", image);
     formData.append("director", director);
     formData.append("actors", chosenActors);
 
-    const response = await postFormData(
+    const responseData = await postFormData(
       "http://127.0.0.1:8000/api/add-movie/",
       formData
     );
-    console.log(response);
+    setResponse(responseData);
+  };
+
+  const handleSuccess = () => {
+    if (response === "Passed.") {
+      return <Alert variant="success">Movie added successfully!</Alert>;
+    }
+  };
+
+  const handleError = () => {
+    if (response === null) return;
+    if (response !== null || response !== "Passed.")
+      return <Alert variant="danger">Inavlid data!</Alert>;
   };
 
   const removeActor = (name) => {
     const newActors = chosenActors.filter((actor) => name !== actor);
     setChosenActors(newActors);
   };
+
   return (
     <Form
       style={{
@@ -59,6 +72,8 @@ export default function AddMovie() {
       }}
       onSubmit={handleSubmit}
     >
+      {handleSuccess()}
+      {handleError()}
       <Form.Label style={{ marginBottom: "1rem", fontSize: "2rem" }}>
         <Form.Text>Add movie</Form.Text>
       </Form.Label>
@@ -83,34 +98,19 @@ export default function AddMovie() {
         className="mb-3"
         style={{ display: "flex", flexDirection: "row" }}
       >
-        <Row>
-          <Col>
-            <Form.Control
-              placeholder="YYYY"
-              maxLength="4"
-              onChange={(e) => setYear(e.target.value)}
-            ></Form.Control>
-          </Col>
-          <Col>
-            <Form.Control
-              placeholder="MM"
-              maxLength="2"
-              onChange={(e) => setMonth(e.target.value)}
-            ></Form.Control>
-          </Col>
-          <Col>
-            <Form.Control
-              placeholder="DD"
-              maxLength="2"
-              onChange={(e) => setDay(e.target.value)}
-            ></Form.Control>
-          </Col>
-        </Row>
+        <Form.Control
+          type="date"
+          onChange={(e) => setDate(e.target.value)}
+        ></Form.Control>
       </Form.Group>
       <Form.Group
         className="mb-3"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
+        <InfoButton
+          title="Hint"
+          msg="If there is no director in that list, first you need to add new director."
+        />
         <Form.Control as="select" onChange={(e) => setDirector(e.target.value)}>
           <option>Choose director</option>
           {directors.map((director) => {
@@ -119,6 +119,10 @@ export default function AddMovie() {
         </Form.Control>
       </Form.Group>
       <Form.Group className="mb-3" style={{ display: "flex" }}>
+        <InfoButton
+          title="Hint"
+          msg="If there is no actor in that list, first you need to add new actor."
+        />
         <Form.Control
           as="select"
           onChange={(e) => {
