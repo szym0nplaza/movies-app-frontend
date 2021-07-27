@@ -18,6 +18,7 @@ import Account from "../Account/Account";
 import ManageMovies from "../ManageMovies/ManageMovies";
 import { Container } from "react-bootstrap";
 import AddMovie from "../AddMovie/AddMovie";
+import MovieSettings from "../MovieSettings/MovieSettings";
 
 function App() {
   const [user, userDispatch] = useReducer(userReducer, null);
@@ -43,6 +44,7 @@ function App() {
             <Route path="/user-settings/:slug" component={ManageUsers} />
             <Route path="/manage-movies" component={ManageMovies} />
             <Route path="/add-movie" component={AddMovie} />
+            <Route path="/movie-settings/:slug" component={MovieSettings} />
           </Switch>
         </userContext.Provider>
       </Router>

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Col, Form, Row } from "react-bootstrap";
-import { postFormData, fetchData } from "../../services/client";
-import ActorTile from "./ActorTile";
+import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import deleteData from "../../services/deleteData";
+import fetchData from "../../services/fetchData";
+import postFormData from "../../services/postFormData";
+import ActorTile from "../AddMovie/ActorTile";
 import InfoButton from "../InfoButton/InfoButton";
 
-export default function AddMovie() {
+export default function MovieSettings() {
+  let { slug } = useParams();
+  const [details, setDetails] = useState(null);
+
   const [directors, setDirectors] = useState([]);
   const [actors, setActors] = useState([]);
   const [chosenActors, setChosenActors] = useState([]);
@@ -20,11 +26,28 @@ export default function AddMovie() {
     const data = async () => {
       const actor = await fetchData("http://127.0.0.1:8000/api/actors/");
       const director = await fetchData("http://127.0.0.1:8000/api/directors/");
+      const detail = await fetchData(
+        `http://127.0.0.1:8000/api/movie-details/${slug}`
+      );
       setActors(actor);
       setDirectors(director);
+      setDetails(detail);
     };
     data();
   }, []);
+
+  useEffect(() => {
+    if (details) {
+      setChosenActors(details.actors);
+    }
+  }, [details]);
+
+  if (!details) {
+    return <Spinner animation="border" variant="info" />;
+  }
+
+  if (response === "Deleted.")
+    return <Alert variant="danger">Movie {details.title} deleted.</Alert>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,25 +60,34 @@ export default function AddMovie() {
     formData.append("actors", chosenActors);
 
     const responseData = await postFormData(
-      "http://127.0.0.1:8000/api/add-movie/",
+      "http://127.0.0.1:8000/api/manage-movie/",
       formData
     );
     setResponse(responseData);
   };
 
   const handleSuccess = () => {
-    if (response === null) return;
     if (response === "Passed.") {
-      return <Alert variant="success">Movie added successfully!</Alert>;
+      return <Alert variant="success">Movie modified successfully!</Alert>;
     }
-    if (response !== null || response !== "Passed.") {
+  };
+
+  const handleError = () => {
+    if (response === null) return;
+    if (response !== null || response !== "Passed.")
       return <Alert variant="danger">Inavlid data!</Alert>;
-    }
   };
 
   const removeActor = (name) => {
     const newActors = chosenActors.filter((actor) => name !== actor);
     setChosenActors(newActors);
+  };
+
+  const deleteMovie = async () => {
+    const responseData = await deleteData(
+      `http://127.0.0.1:8000/api/manage-movie/${slug}/`
+    );
+    setResponse(responseData);
   };
 
   return (
@@ -70,12 +102,14 @@ export default function AddMovie() {
       onSubmit={handleSubmit}
     >
       {handleSuccess()}
+      {handleError()}
       <Form.Label style={{ marginBottom: "1rem", fontSize: "2rem" }}>
-        <Form.Text>Add movie</Form.Text>
+        <Form.Text>Update movie</Form.Text>
       </Form.Label>
       <Form.Group className="mb-3">
         <Form.Label>Title</Form.Label>
         <Form.Control
+          value={details.title}
           type="text"
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
@@ -87,6 +121,7 @@ export default function AddMovie() {
           as="textarea"
           rows={3}
           onChange={(e) => setDescription(e.target.value)}
+          value={details.description}
         />
       </Form.Group>
       <Form.Label>Year of production</Form.Label>
@@ -95,6 +130,7 @@ export default function AddMovie() {
         style={{ display: "flex", flexDirection: "row" }}
       >
         <Form.Control
+          value={details.year_of_production}
           type="date"
           onChange={(e) => setDate(e.target.value)}
         ></Form.Control>
@@ -108,7 +144,7 @@ export default function AddMovie() {
           msg="If there is no director in that list, first you need to add new director."
         />
         <Form.Control as="select" onChange={(e) => setDirector(e.target.value)}>
-          <option>Choose director</option>
+          <option value={details.director}>{details.director}</option>
           {directors.map((director) => {
             return (
               <option value={director.name} key={director.id}>
@@ -167,6 +203,10 @@ export default function AddMovie() {
         className="mb-3"
         style={{ display: "flex", flexDirection: "column" }}
       >
+        <img
+          src={`http://127.0.0.1:8000${details.image}/`}
+          style={{ marginBottom: "1rem" }}
+        />
         <Form.Label>Upload movie image</Form.Label>
         <Form.Control
           type="file"
@@ -174,11 +214,18 @@ export default function AddMovie() {
         />
       </Form.Group>
       <Button
-        variant="info"
+        variant="warning"
         type="submit"
-        style={{ width: "100%", color: "white" }}
+        style={{ width: "100%", color: "white", marginBottom: "0.5rem" }}
       >
-        Add movie
+        Update Movie
+      </Button>
+      <Button
+        variant="danger"
+        style={{ width: "100%", color: "white" }}
+        onClick={deleteMovie}
+      >
+        Delete Movie
       </Button>
     </Form>
   );
