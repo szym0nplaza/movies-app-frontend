@@ -3,7 +3,7 @@ import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import deleteData from "../../services/deleteData";
 import fetchData from "../../services/fetchData";
-import postFormData from "../../services/postFormData";
+import putFormData from "../../services/putFormData";
 import ActorTile from "../AddMovie/ActorTile";
 import InfoButton from "../InfoButton/InfoButton";
 
@@ -39,6 +39,11 @@ export default function MovieSettings() {
   useEffect(() => {
     if (details) {
       setChosenActors(details.actors);
+      setTitle(details.title);
+      setDate(details.year_of_production);
+      setDescription(details.description);
+      setDirector(details.director);
+      setImage(details.image);
     }
   }, [details]);
 
@@ -59,20 +64,17 @@ export default function MovieSettings() {
     formData.append("director", director);
     formData.append("actors", chosenActors);
 
-    const responseData = await postFormData(
-      "http://127.0.0.1:8000/api/manage-movie/",
+    const responseData = await putFormData(
+      `http://127.0.0.1:8000/api/manage-movie/${slug}/`,
       formData
     );
     setResponse(responseData);
   };
 
   const handleSuccess = () => {
-    if (response === "Passed.") {
+    if (response === "Changed.") {
       return <Alert variant="success">Movie modified successfully!</Alert>;
     }
-  };
-
-  const handleError = () => {
     if (response === null) return;
     if (response !== null || response !== "Passed.")
       return <Alert variant="danger">Inavlid data!</Alert>;
@@ -102,17 +104,25 @@ export default function MovieSettings() {
       onSubmit={handleSubmit}
     >
       {handleSuccess()}
-      {handleError()}
       <Form.Label style={{ marginBottom: "1rem", fontSize: "2rem" }}>
         <Form.Text>Update movie</Form.Text>
       </Form.Label>
+      <Form.Group
+        controlId="formFileSm"
+        className="mb-3"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
+        <img
+          src={`http://127.0.0.1:8000${image}/`}
+          style={{ marginBottom: "1rem" }}
+        />
+      </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Title</Form.Label>
         <Form.Control
-          value={details.title}
           type="text"
-          placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
       </Form.Group>
       <Form.Group className="mb-3">
@@ -121,7 +131,7 @@ export default function MovieSettings() {
           as="textarea"
           rows={3}
           onChange={(e) => setDescription(e.target.value)}
-          value={details.description}
+          value={description}
         />
       </Form.Group>
       <Form.Label>Year of production</Form.Label>
@@ -130,7 +140,7 @@ export default function MovieSettings() {
         style={{ display: "flex", flexDirection: "row" }}
       >
         <Form.Control
-          value={details.year_of_production}
+          value={date}
           type="date"
           onChange={(e) => setDate(e.target.value)}
         ></Form.Control>
@@ -196,22 +206,6 @@ export default function MovieSettings() {
             </Col>
           ))}
         </Row>
-      </Form.Group>
-
-      <Form.Group
-        controlId="formFileSm"
-        className="mb-3"
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        <img
-          src={`http://127.0.0.1:8000${details.image}/`}
-          style={{ marginBottom: "1rem" }}
-        />
-        <Form.Label>Upload movie image</Form.Label>
-        <Form.Control
-          type="file"
-          onChange={(e) => setImage(e.target.files[0])}
-        />
       </Form.Group>
       <Button
         variant="warning"
