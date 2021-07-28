@@ -6,16 +6,16 @@ export default function AdminPanel() {
   return (
     <div>
       <NavDropdown title="Admin Panel" id="collasible-nav-dropdown">
-        <NavDropdown.Item as={Link} to="manage-users">
+        <NavDropdown.Item as={Link} to="/manage-users">
           Manage Users
         </NavDropdown.Item>
-        <NavDropdown.Item as={Link} to="manage-movies">
+        <NavDropdown.Item as={Link} to="/manage-movies">
           Manage movies
         </NavDropdown.Item>
-        <NavDropdown.Item as={Link} to="manage-actors">
+        <NavDropdown.Item as={Link} to="/manage-actors">
           Manage actors
         </NavDropdown.Item>
-        <NavDropdown.Item as={Link} to="manage-directors">
+        <NavDropdown.Item as={Link} to="/manage-directors">
           Manage directors
         </NavDropdown.Item>
       </NavDropdown>
