@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import fetchData from "../../services/fetchData";
+import { fetchData } from "../../services/client";
 
 export default function UsersGrid() {
   const [users, setUsers] = useState([]);

@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import userContext from "../../context/userContext";
 import AlertView from "../AlertView/AlertView";
-import putData from "../../services/putData";
-import postData from "../../services/postData";
+import { putData } from "../../services/client";
+import { postData } from "../../services/client";
 import { useHistory } from "react-router-dom";
 
 export default function ManageUser() {

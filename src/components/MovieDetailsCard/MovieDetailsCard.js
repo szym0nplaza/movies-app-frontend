@@ -7,7 +7,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import fetchData from "../../services/fetchData";
+import { fetchData } from "../../services/client";
 
 export default function MovieDetailsCard() {
   let { slug } = useParams();

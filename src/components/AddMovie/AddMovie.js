@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
-import fetchData from "../../services/fetchData";
-import postFormData from "../../services/postFormData";
+import { postFormData, fetchData } from "../../services/client";
 import ActorTile from "./ActorTile";
 import InfoButton from "../InfoButton/InfoButton";
 

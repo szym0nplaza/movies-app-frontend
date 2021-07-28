@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import postData from "../../services/postData";
+import { postData } from "../../services/client";
 import AlertView from "../AlertView/AlertView";
 
 export default function RegisterPage() {

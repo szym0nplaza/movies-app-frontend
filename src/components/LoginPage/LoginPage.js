@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import postData from "../../services/postData";
+import { postData } from "../../services/client";
 import AlertView from "../AlertView/AlertView";
 import userContext from "../../context/userContext";
 

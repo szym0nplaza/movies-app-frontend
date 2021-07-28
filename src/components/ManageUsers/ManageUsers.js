@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Card, Spinner } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import deleteData from "../../services/deleteData";
-import fetchData from "../../services/fetchData";
+import { fetchData, deleteData } from "../../services/client";
 import AlertView from "../AlertView/AlertView";
 
 export default function ManageUsers() {
