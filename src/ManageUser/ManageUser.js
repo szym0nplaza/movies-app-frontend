@@ -70,6 +70,7 @@ export default function ManageUser() {
     const response = await postData("http://127.0.0.1:8000/api/logout/", {
       email: user.email,
     });
+    localStorage.clear();
     if (response === "Logget out.") {
       history.push("/");
       userDispatch({ type: "DELETE_USER" });

@@ -11,7 +11,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import userContext from "../../context/userContext";
 import userReducer from "../../reducers/userReducer";
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import ManageUsers from "../ManageUsers/ManageUsers";
 import UsersGrid from "../UsersGrid/UsersGrid";
 import Account from "../Account/Account";
@@ -29,6 +29,12 @@ import Footer from "../Footer/Footer";
 
 function App() {
   const [user, userDispatch] = useReducer(userReducer, null);
+  useEffect(() => {
+    userDispatch({
+      type: "SET_USER",
+      payload: JSON.parse(localStorage.getItem("user")) || null,
+    });
+  }, []);
   return (
     <div className="App">
       <Router>
