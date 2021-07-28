@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import postData from "../../services/postData";
+import { postData } from "../../services/client";
 import AlertView from "../AlertView/AlertView";
 
 export default function RegisterPage() {
@@ -13,6 +13,9 @@ export default function RegisterPage() {
 
   const validate = async (e) => {
     if (!checkbox) {
+      return null;
+    }
+    if (password === "") {
       return null;
     }
     e.preventDefault();
@@ -45,12 +48,7 @@ export default function RegisterPage() {
       );
     }
     if (resposne === "Invalid data.") {
-      return (
-        <AlertView
-          type="danger"
-          msg="You passed invalid data or user with given email exists!"
-        />
-      );
+      return <AlertView type="danger" msg="User with given email exists!" />;
     }
     if (!checkbox) {
       return <AlertView type="danger" msg="Accept terms and contitions!" />;

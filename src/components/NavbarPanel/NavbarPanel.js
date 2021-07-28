@@ -17,39 +17,37 @@ export default function NavbarPanel() {
     }
   };
   return (
-    <div className="navbar-panel">
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container fluid>
-          <Image src="/icons/cinema.svg" style={{ marginRight: "30px" }} />
-          <Navbar.Brand as={Link} to="/">
-            Movies-App
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">
-                Movies
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container fluid>
+        <Image src="/icons/cinema.svg" style={{ marginRight: "30px" }} />
+        <Navbar.Brand as={Link} to="/">
+          Movies-App
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/">
+              Movies
+            </Nav.Link>
+            <Nav.Link as={Link} to="/actors">
+              Actors
+            </Nav.Link>
+            <Nav.Link as={Link} to="/directors">
+              Directors
+            </Nav.Link>
+            {checkAdmin()}
+          </Nav>
+          <Nav>
+            {user === null ? (
+              <LoginRegisterButton />
+            ) : (
+              <Nav.Link as={Link} to={`/account`}>
+                {user.email}
               </Nav.Link>
-              <Nav.Link as={Link} to="/actors">
-                Actors
-              </Nav.Link>
-              <Nav.Link as={Link} to="/directors">
-                Directors
-              </Nav.Link>
-              {checkAdmin()}
-            </Nav>
-            <Nav>
-              {user === null ? (
-                <LoginRegisterButton />
-              ) : (
-                <Nav.Link as={Link} to={`/account`}>
-                  {user.email}
-                </Nav.Link>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </div>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }

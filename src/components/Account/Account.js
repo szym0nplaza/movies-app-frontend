@@ -2,14 +2,16 @@ import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import userContext from "../../context/userContext";
 import AlertView from "../AlertView/AlertView";
-import putData from "../../services/putData";
+import { postData, putData } from "../../services/client";
+import { useHistory } from "react-router-dom";
 
-export default function ManageUser() {
-  const { user } = useContext(userContext);
+export default function Account() {
+  const { user, userDispatch } = useContext(userContext);
   const [response, setResponse] = useState("");
   const [checkbox, setCheckbox] = useState(false);
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const history = useHistory();
 
   const validate = async (e) => {
     e.preventDefault();
@@ -17,6 +19,9 @@ export default function ManageUser() {
     //   return null;
     // }
     if (password !== password2) {
+      return null;
+    }
+    if (password === "") {
       return null;
     }
     const responseData = await putData(
@@ -59,6 +64,17 @@ export default function ManageUser() {
       );
     }
   };
+
+  const logOutView = async () => {
+    const response = await postData("http://127.0.0.1:8000/api/logout/", {
+      email: user.email,
+    });
+    if (response === "Logget out.") {
+      history.push("/");
+      userDispatch({ type: "DELETE_USER" });
+    }
+  };
+
   return (
     <Form
       style={{
@@ -67,7 +83,7 @@ export default function ManageUser() {
         borderRadius: "6px",
         margin: "auto",
         padding: "1.2rem 1rem",
-        marginTop: "3rem",
+        margin: "3rem auto",
       }}
       onSubmit={validate}
     >
@@ -108,7 +124,14 @@ export default function ManageUser() {
         type="submit"
         style={{ color: "white", width: "100%", marginTop: "1rem" }}
       >
-        Submit
+        Update
+      </Button>
+      <Button
+        variant="outline-danger"
+        style={{ width: "100%", marginTop: "1rem" }}
+        onClick={logOutView}
+      >
+        Log Out
       </Button>
     </Form>
   );
