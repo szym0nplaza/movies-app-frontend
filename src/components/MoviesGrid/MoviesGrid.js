@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import { Container, Row, Col } from "react-bootstrap";
-import fetchData from "../../services/fetchData";
+import { fetchData } from "../../services/client";
 
 export default function MoviesGrid() {
   const [movies, setMovies] = useState([]);
-
   useEffect(() => {
     const data = async () => {
       const movie = await fetchData("http://127.0.0.1:8000/api/movies/");

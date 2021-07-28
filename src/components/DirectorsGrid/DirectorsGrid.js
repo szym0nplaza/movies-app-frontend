@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DirectorCard from "../DirectorCard/DirectorCard";
 import { Container, Col, Row } from "react-bootstrap";
-import fetchData from "../../services/fetchData";
+import { fetchData } from "../../services/client";
 
 export default function DirectorsGrid() {
   const [directors, setDirectors] = useState([]);
