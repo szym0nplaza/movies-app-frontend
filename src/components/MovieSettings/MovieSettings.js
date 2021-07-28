@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import deleteData from "../../services/deleteData";
-import fetchData from "../../services/fetchData";
-import putFormData from "../../services/putFormData";
+import { deleteData, fetchData, putFormData } from "../../services/client";
 import ActorTile from "../AddMovie/ActorTile";
 import InfoButton from "../InfoButton/InfoButton";
 

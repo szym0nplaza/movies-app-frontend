@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
-import postFormData from "../../services/postFormData";
+import { postFormData } from "../../services/client";
 
 export default function AddActor() {
   const [name, setName] = useState("");
