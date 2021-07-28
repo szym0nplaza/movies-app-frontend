@@ -45,7 +45,7 @@ export default function DirectorDetailsCard() {
           style={{ color: "#FFFFFF", width: "100%", marginTop: "1rem" }}
           variant="info"
           as={Link}
-          to=""
+          to="/directors"
         >
           Go Back
         </Button>

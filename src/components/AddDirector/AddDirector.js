@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 import { postFormData } from "../../services/client";
 
-export default function AddActor() {
+export default function AddDirector() {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [image, setImage] = useState("");
@@ -16,7 +16,7 @@ export default function AddActor() {
     formData.append("image", image);
 
     const responseData = await postFormData(
-      "http://127.0.0.1:8000/api/add-actor/",
+      "http://127.0.0.1:8000/api/add-director/",
       formData
     );
     setResponse(responseData);
@@ -24,7 +24,7 @@ export default function AddActor() {
 
   const handleSuccess = () => {
     if (response === "Passed.") {
-      return <Alert variant="success">Actor added successfully!</Alert>;
+      return <Alert variant="success">Director added successfully!</Alert>;
     }
     if (response === "Invalid data.") {
       return <Alert variant="danger">Invalid data</Alert>;
@@ -44,7 +44,7 @@ export default function AddActor() {
     >
       {handleSuccess()}
       <Form.Label style={{ marginBottom: "1rem", fontSize: "2rem" }}>
-        <Form.Text>Add actor</Form.Text>
+        <Form.Text>Add director</Form.Text>
       </Form.Label>
       <Form.Group className="mb-3">
         <Form.Label>Name</Form.Label>
@@ -69,7 +69,7 @@ export default function AddActor() {
         className="mb-3"
         style={{ display: "flex", flexDirection: "column" }}
       >
-        <Form.Label>Upload actor image</Form.Label>
+        <Form.Label>Upload director image</Form.Label>
         <Form.Control
           type="file"
           onChange={(e) => setImage(e.target.files[0])}
@@ -80,7 +80,7 @@ export default function AddActor() {
         type="submit"
         style={{ width: "100%", color: "white" }}
       >
-        Add actor
+        Add director
       </Button>
     </Form>
   );
