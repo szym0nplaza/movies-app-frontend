@@ -2,7 +2,7 @@ import { Button, Spinner } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import fetchData from "../../services/fetchData";
+import { fetchData } from "../../services/client";
 
 export default function DirectorDetailsCard() {
   let { slug } = useParams();
@@ -38,7 +38,7 @@ export default function DirectorDetailsCard() {
         </Card.Title>
         <ListGroup className="list-group-flush">
           <ListGroupItem>Date of birth: {date_of_birth}</ListGroupItem>
-          <ListGroupItem>Movies: {details.movies}</ListGroupItem>
+          <ListGroupItem>Movies: {details.movies.join(", ")}</ListGroupItem>
         </ListGroup>
         <Button
           style={{ color: "#FFFFFF", width: "100%", marginTop: "1rem" }}

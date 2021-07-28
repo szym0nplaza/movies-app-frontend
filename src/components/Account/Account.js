@@ -2,11 +2,10 @@ import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import userContext from "../../context/userContext";
 import AlertView from "../AlertView/AlertView";
-import putData from "../../services/putData";
-import postData from "../../services/postData";
+import { postData, putData } from "../../services/client";
 import { useHistory } from "react-router-dom";
 
-export default function ManageUser() {
+export default function Account() {
   const { user, userDispatch } = useContext(userContext);
   const [response, setResponse] = useState("");
   const [checkbox, setCheckbox] = useState(false);

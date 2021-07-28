@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import { Container, Row, Col } from "react-bootstrap";
-import fetchData from "../../services/fetchData";
+import { fetchData } from "../../services/client";
 
 export default function MoviesGrid() {
   const [movies, setMovies] = useState([]);
