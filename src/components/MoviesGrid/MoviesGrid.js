@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import { Container, Row, Col } from "react-bootstrap";
-import fetchData from "../../services/fetchData";
-import userContext from "../../context/userContext";
+import { fetchData } from "../../services/client";
 
 export default function MoviesGrid() {
   const [movies, setMovies] = useState([]);
-  const { user } = useContext(userContext);
   useEffect(() => {
     const data = async () => {
       const movie = await fetchData("http://127.0.0.1:8000/api/movies/");
@@ -14,7 +12,6 @@ export default function MoviesGrid() {
     };
     data();
   }, []);
-  console.log(user);
   return (
     <Container fluid="md">
       <Row>

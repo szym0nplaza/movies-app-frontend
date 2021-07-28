@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import postData from "../../services/postData";
+import { postData } from "../../services/client";
 import AlertView from "../AlertView/AlertView";
 import userContext from "../../context/userContext";
 
@@ -25,7 +25,7 @@ export default function LoginPage() {
   };
   const checkData = () => {
     if (check === "Invalid data.") {
-      return <AlertView msg="Invalid email or password!" />;
+      return <AlertView type="danger" msg="Invalid email or password!" />;
     }
   };
 
