@@ -29,7 +29,7 @@ export default function MovieSettings() {
       );
       setActors(actor);
       setDirectors(director);
-      setDetails(detail);
+      setDetails(detail.movie);
     };
     data();
   }, []);

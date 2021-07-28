@@ -27,7 +27,10 @@ export default function AddDirector() {
       return <Alert variant="success">Director added successfully!</Alert>;
     }
     if (response === "Invalid data.") {
-      return <Alert variant="danger">Invalid data</Alert>;
+      return <Alert variant="danger">Invalid data!</Alert>;
+    }
+    if (response === "Director exists.") {
+      return <Alert variant="danger">Director exists!</Alert>;
     }
   };
 

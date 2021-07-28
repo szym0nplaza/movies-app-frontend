@@ -27,7 +27,10 @@ export default function AddActor() {
       return <Alert variant="success">Actor added successfully!</Alert>;
     }
     if (response === "Invalid data.") {
-      return <Alert variant="danger">Invalid data</Alert>;
+      return <Alert variant="danger">Invalid data!</Alert>;
+    }
+    if (response === "Actor exists.") {
+      return <Alert variant="danger">Actor exists!</Alert>;
     }
   };
 

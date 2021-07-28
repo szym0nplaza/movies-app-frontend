@@ -8,16 +8,13 @@ import { useHistory } from "react-router-dom";
 export default function Account() {
   const { user, userDispatch } = useContext(userContext);
   const [response, setResponse] = useState("");
-  const [checkbox, setCheckbox] = useState(false);
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [isMailSended, setIsMailSended] = useState(false);
   const history = useHistory();
 
   const validate = async (e) => {
     e.preventDefault();
-    // if (!checkbox) {
-    //   return null;
-    // }
     if (password !== password2) {
       return null;
     }
@@ -60,15 +57,18 @@ export default function Account() {
     }
     if (!user.is_admin) {
       return (
-        <Form.Check label="Select if you want to be admin. We will send email to owner and reply as fast as it is possible" />
+        <Form.Text style={{ fontSize: "1.2rem" }}>
+          If you want to be an admin contact with one of our workers by an
+          email. They will reply as fast as it's possible.
+        </Form.Text>
       );
     }
   };
-
   const logOutView = async () => {
     const response = await postData("http://127.0.0.1:8000/api/logout/", {
       email: user.email,
     });
+    localStorage.removeItem("user");
     if (response === "Logget out.") {
       history.push("/");
       userDispatch({ type: "DELETE_USER" });
@@ -96,7 +96,6 @@ export default function Account() {
         <Form.Label>Email address</Form.Label>
         <Form.Control readOnly type="email" value={user.email} />
       </Form.Group>
-
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>New password</Form.Label>
         <Form.Control
@@ -117,7 +116,7 @@ export default function Account() {
         <Form.Label style={{ fontSize: "1.4rem", marginTop: "1rem" }}>
           Admin status
         </Form.Label>
-        {adminCheck()}
+        <Form.Group>{adminCheck()}</Form.Group>
       </Form.Group>
       <Button
         variant="warning"
