@@ -5,9 +5,10 @@ import {
   ListGroupItem,
   Button,
   Spinner,
+  Container,
 } from "react-bootstrap";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { fetchData } from "../../services/client";
+import { fetchData, postData } from "../../services/client";
 import ReactStarsRating from "react-awesome-stars-rating";
 import userContext from "../../context/userContext";
 
@@ -20,6 +21,14 @@ export default function MovieDetailsCard() {
   const [actorsTab, setActorsTab] = useState([]);
   const [stars, setStars] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
+  const [button, setButton] = useState(false);
+
+  const awaitStars = async (title) => {
+    const starsData = await fetchData(
+      `http://127.0.0.1:8000/api/get-ratings/${title}/`
+    );
+    setStars(starsData);
+  };
 
   useEffect(() => {
     const data = async () => {
@@ -32,9 +41,19 @@ export default function MovieDetailsCard() {
       setActorsTab(detail.actors);
       setDetails(detail.movie);
       setDirectorId(director.id);
+      awaitStars(detail.movie.title);
     };
     data();
   }, []);
+
+  const handleRating = async () => {
+    const response = await postData("http://127.0.0.1:8000/api/rate-movie/", {
+      email: user.email,
+      amount: stars,
+      title: details.title,
+    });
+    console.log(response);
+  };
 
   if (!details) {
     return (
@@ -54,6 +73,7 @@ export default function MovieDetailsCard() {
       history.push("/login");
     }
     setIsEdit(true);
+    setButton(true);
   };
 
   return (
@@ -75,17 +95,36 @@ export default function MovieDetailsCard() {
           }}
         >
           <Card.Text style={{ margin: "0" }}>{title}</Card.Text>
-          <Button variant="link" onClick={handleStars}>
-            <ReactStarsRating
-              isEdit={isEdit}
-              size={30}
-              value={stars}
-              onChange={(value) => {
-                setStars(value);
-              }}
-              className="stars-rating"
-            />
-          </Button>
+          <Container
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              marginLeft: "auto",
+            }}
+          >
+            <Button variant="link" onClick={handleStars}>
+              <ReactStarsRating
+                isEdit={isEdit}
+                size={30}
+                value={stars}
+                onChange={(value) => {
+                  setStars(value);
+                }}
+                className="stars-rating"
+              />
+            </Button>
+            {button ? (
+              <Button
+                variant="warning"
+                size="sm"
+                style={{ margin: "0.5rem 1.5rem 0 0", color: "white" }}
+                onClick={handleRating}
+              >
+                Rate that movie!
+              </Button>
+            ) : null}
+          </Container>
         </Card.Title>
         <ListGroup className="list-group-flush">
           <ListGroupItem>
