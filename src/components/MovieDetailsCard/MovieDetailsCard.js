@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
   ListGroup,
@@ -6,14 +6,20 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { fetchData } from "../../services/client";
+import ReactStarsRating from "react-awesome-stars-rating";
+import userContext from "../../context/userContext";
 
 export default function MovieDetailsCard() {
+  const { user } = useContext(userContext);
+  const history = useHistory();
   let { slug } = useParams();
   const [details, setDetails] = useState(null);
   const [directorId, setDirectorId] = useState(null);
   const [actorsTab, setActorsTab] = useState([]);
+  const [stars, setStars] = useState(0);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     const data = async () => {
@@ -43,6 +49,13 @@ export default function MovieDetailsCard() {
   const { image, title, year_of_production, director, actors, description } =
     details;
 
+  const handleStars = () => {
+    if (user === null) {
+      history.push("/login");
+    }
+    setIsEdit(true);
+  };
+
   return (
     <Card style={{ maxWidth: "50rem", margin: "2rem auto" }}>
       <Card.Img
@@ -51,8 +64,28 @@ export default function MovieDetailsCard() {
         src={`http://127.0.0.1:8000${image}`}
       />
       <Card.Body>
-        <Card.Title style={{ fontSize: "2rem", margin: "0 0 1rem 1rem" }}>
-          {title}
+        <Card.Title
+          style={{
+            fontSize: "2rem",
+            margin: "0 0 1rem 1rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingRight: "1rem",
+          }}
+        >
+          <Card.Text style={{ margin: "0" }}>{title}</Card.Text>
+          <Button variant="link" onClick={handleStars}>
+            <ReactStarsRating
+              isEdit={isEdit}
+              size={30}
+              value={stars}
+              onChange={(value) => {
+                setStars(value);
+              }}
+              className="stars-rating"
+            />
+          </Button>
         </Card.Title>
         <ListGroup className="list-group-flush">
           <ListGroupItem>
