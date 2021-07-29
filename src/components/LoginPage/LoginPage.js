@@ -18,11 +18,14 @@ export default function LoginPage() {
       email: email,
       password: password,
     });
-    userDispatch({ type: "SET_USER", payload: responseData });
-    const { token, is_admin } = responseData;
+    if (responseData !== "Invalid data.") {
+      userDispatch({ type: "SET_USER", payload: responseData });
+      setCheck(responseData);
+      const { token, is_admin } = responseData;
+      localStorage.setItem("user", JSON.stringify(responseData));
+      if (token) history.push("/");
+    }
     setCheck(responseData);
-    localStorage.setItem("user", JSON.stringify(responseData));
-    if (token) history.push("/");
   };
   const checkData = () => {
     if (check === "Invalid data.") {

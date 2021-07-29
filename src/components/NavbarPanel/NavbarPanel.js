@@ -12,7 +12,7 @@ export default function NavbarPanel() {
     if (user === null) {
       return false;
     }
-    if (user.is_admin) {
+    if (user !== null) {
       return <AdminPanel />;
     }
   };

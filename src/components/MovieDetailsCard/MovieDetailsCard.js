@@ -6,6 +6,7 @@ import {
   Button,
   Spinner,
   Container,
+  Alert,
 } from "react-bootstrap";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { fetchData, postData } from "../../services/client";
@@ -22,6 +23,8 @@ export default function MovieDetailsCard() {
   const [stars, setStars] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [button, setButton] = useState(false);
+  const [response, setResponse] = useState(false);
+  const [myStars, setMyStars] = useState(0);
 
   const awaitStars = async (title) => {
     const starsData = await fetchData(
@@ -46,14 +49,9 @@ export default function MovieDetailsCard() {
     data();
   }, []);
 
-  const handleRating = async () => {
-    const response = await postData("http://127.0.0.1:8000/api/rate-movie/", {
-      email: user.email,
-      amount: stars,
-      title: details.title,
-    });
-    console.log(response);
-  };
+  useEffect(() => {
+    if (details) awaitStars(details.title);
+  }, [response]);
 
   if (!details) {
     return (
@@ -64,6 +62,22 @@ export default function MovieDetailsCard() {
       />
     );
   }
+
+  const handleRating = async () => {
+    setMyStars(stars);
+    const response = await postData("http://127.0.0.1:8000/api/rate-movie/", {
+      email: user.email,
+      amount: stars,
+      title: details.title,
+    });
+    if (response === "Added.") {
+      setResponse(true);
+      setIsEdit(false);
+      setTimeout(() => {
+        setResponse(false);
+      }, 5000);
+    }
+  };
 
   const { image, title, year_of_production, director, actors, description } =
     details;
@@ -84,6 +98,11 @@ export default function MovieDetailsCard() {
         src={`http://127.0.0.1:8000${image}`}
       />
       <Card.Body>
+        {response ? (
+          <Alert variant="warning">
+            You rated this movie on <b>{myStars}</b> stars!
+          </Alert>
+        ) : null}
         <Card.Title
           style={{
             fontSize: "2rem",
@@ -94,7 +113,7 @@ export default function MovieDetailsCard() {
             paddingRight: "1rem",
           }}
         >
-          <Card.Text style={{ margin: "0" }}>{title}</Card.Text>
+          <Card.Text style={{ margin: "0", width: "150%" }}>{title}</Card.Text>
           <Container
             style={{
               display: "flex",

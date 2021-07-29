@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import userContext from "../../context/userContext";
 
 export default function AdminPanel() {
+  const { user } = useContext(userContext);
+  const checkAdmin = () => {
+    if (user.is_admin) {
+      return (
+        <NavDropdown.Item as={Link} to="/manage-users">
+          Manage users
+        </NavDropdown.Item>
+      );
+    }
+  };
+
   return (
     <div>
       <NavDropdown title="Admin Panel" id="collasible-nav-dropdown">
-        <NavDropdown.Item as={Link} to="/manage-users">
-          Manage Users
-        </NavDropdown.Item>
+        {checkAdmin()}
         <NavDropdown.Item as={Link} to="/manage-movies">
           Manage movies
         </NavDropdown.Item>
