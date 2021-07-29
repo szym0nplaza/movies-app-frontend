@@ -7,6 +7,7 @@ import { fetchData } from "../../services/client";
 export default function DirectorDetailsCard() {
   let { slug } = useParams();
   const [details, setDetails] = useState(null);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const data = async () => {
@@ -14,11 +15,12 @@ export default function DirectorDetailsCard() {
         `http://127.0.0.1:8000/api/actor-details/${slug}`
       );
       setDetails(detail);
+      setMovies(detail.movies);
     };
     data();
   }, []);
 
-  if (!details) {
+  if (!details || !movies) {
     return (
       <Spinner
         style={{ display: "block", margin: "5rem auto" }}
@@ -28,7 +30,6 @@ export default function DirectorDetailsCard() {
     );
   }
   const { name, image, date_of_birth } = details.actor_info;
-
   return (
     <Card style={{ maxWidth: "50rem", margin: "2rem auto" }}>
       <Card.Img variant="top" src={`http://127.0.0.1:8000${image}`} />
@@ -38,7 +39,20 @@ export default function DirectorDetailsCard() {
         </Card.Title>
         <ListGroup className="list-group-flush">
           <ListGroupItem>Date of birth: {date_of_birth}</ListGroupItem>
-          <ListGroupItem>Movies: {details.movies.join(", ")}</ListGroupItem>
+          <ListGroupItem>
+            Movies:{" "}
+            {movies.map((movie) => {
+              return (
+                <Link
+                  key={movie.id}
+                  to={`/movie-details/${movie.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  {`${movie.title}, `}
+                </Link>
+              );
+            })}
+          </ListGroupItem>
         </ListGroup>
         <Button
           style={{ color: "#FFFFFF", width: "100%", marginTop: "1rem" }}

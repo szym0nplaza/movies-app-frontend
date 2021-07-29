@@ -20,7 +20,7 @@ export default function MovieCard({
           <Card.Text>Year of production: {year_of_production}</Card.Text>
           <Card.Text>Director: {director}</Card.Text>
           <Link to={`movie-details/${id}`}>
-            <Button variant="info" style={{ borderRadius: 0, color: "white" }}>
+            <Button variant="info" style={{ color: "white" }}>
               Read more
             </Button>
           </Link>

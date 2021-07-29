@@ -21,6 +21,7 @@ export default function LoginPage() {
     userDispatch({ type: "SET_USER", payload: responseData });
     const { token, is_admin } = responseData;
     setCheck(responseData);
+    localStorage.setItem("user", JSON.stringify(responseData));
     if (token) history.push("/");
   };
   const checkData = () => {

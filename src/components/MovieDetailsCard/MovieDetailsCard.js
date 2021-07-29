@@ -12,19 +12,32 @@ import { fetchData } from "../../services/client";
 export default function MovieDetailsCard() {
   let { slug } = useParams();
   const [details, setDetails] = useState(null);
+  const [directorId, setDirectorId] = useState(null);
+  const [actorsTab, setActorsTab] = useState([]);
 
   useEffect(() => {
     const data = async () => {
       const detail = await fetchData(
         `http://127.0.0.1:8000/api/movie-details/${slug}`
       );
-      setDetails(detail);
+      const director = await fetchData(
+        `http://127.0.0.1:8000/api/get-director-id/${detail.movie.director}/`
+      );
+      setActorsTab(detail.actors);
+      setDetails(detail.movie);
+      setDirectorId(director.id);
     };
     data();
   }, []);
 
   if (!details) {
-    return <Spinner animation="border" variant="info" />;
+    return (
+      <Spinner
+        animation="border"
+        variant="info"
+        style={{ margin: "3rem auto" }}
+      />
+    );
   }
 
   const { image, title, year_of_production, director, actors, description } =
@@ -45,8 +58,29 @@ export default function MovieDetailsCard() {
           <ListGroupItem>
             Year of production: {year_of_production}
           </ListGroupItem>
-          <ListGroupItem>Director: {director}</ListGroupItem>
-          <ListGroupItem>Actors: {actors.join(", ")}</ListGroupItem>
+          <ListGroupItem>
+            Director:{" "}
+            <Link
+              to={`/director-details/${directorId}`}
+              style={{ textDecoration: "none" }}
+            >
+              {director}
+            </Link>
+          </ListGroupItem>
+          <ListGroupItem>
+            Actors:{" "}
+            {actorsTab.map((actor) => {
+              return (
+                <Link
+                  key={actor.id}
+                  to={`/actor-details/${actor.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  {`${actor.name}, `}
+                </Link>
+              );
+            })}
+          </ListGroupItem>
           <ListGroupItem>Description: {description}</ListGroupItem>
         </ListGroup>
         <Button
