@@ -7,7 +7,9 @@ export default function ManageMovies() {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     const data = async () => {
-      const movie = await fetchData("http://127.0.0.1:8000/api/movies/");
+      const movie = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/movies/`
+      );
       setMovies(movie);
     };
     data();

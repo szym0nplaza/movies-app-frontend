@@ -9,7 +9,7 @@ export default function DirectorCard({
     <Card style={{ margin: "10px 0" }}>
       <Card.Img
         variant="top"
-        src={`http://127.0.0.1:8000${image}`}
+        src={`http://${process.env.REACT_APP_API_URL}${image}`}
         style={{ objectFit: "cover", height: "30rem" }}
       />
       <Card.Body>

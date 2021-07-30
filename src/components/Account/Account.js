@@ -22,7 +22,7 @@ export default function Account() {
       return null;
     }
     const responseData = await putData(
-      `http://127.0.0.1:8000/api/manage-user/${user.id}/`,
+      `http://${process.env.REACT_APP_API_URL}/api/manage-user/${user.id}/`,
       {
         email: user.email,
         password: password,
@@ -65,9 +65,12 @@ export default function Account() {
     }
   };
   const logOutView = async () => {
-    const response = await postData("http://127.0.0.1:8000/api/logout/", {
-      email: user.email,
-    });
+    const response = await postData(
+      `http://${process.env.REACT_APP_API_URL}/api/logout/`,
+      {
+        email: user.email,
+      }
+    );
     localStorage.removeItem("user");
     if (response === "Logget out.") {
       history.push("/");

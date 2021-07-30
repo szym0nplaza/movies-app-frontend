@@ -12,7 +12,7 @@ export default function DirectorDetailsCard() {
   useEffect(() => {
     const data = async () => {
       const detail = await fetchData(
-        `http://127.0.0.1:8000/api/director-details/${slug}`
+        `http://${process.env.REACT_APP_API_URL}/api/director-details/${slug}`
       );
       setDetails(detail);
       setMovies(detail.movies);
@@ -34,7 +34,10 @@ export default function DirectorDetailsCard() {
 
   return (
     <Card style={{ maxWidth: "50rem", margin: "2rem auto" }}>
-      <Card.Img variant="top" src={`http://127.0.0.1:8000${image}`} />
+      <Card.Img
+        variant="top"
+        src={`http://${process.env.REACT_APP_API_URL}${image}`}
+      />
       <Card.Body>
         <Card.Title style={{ fontSize: "2rem", margin: "0 0 1rem 1rem" }}>
           {name}

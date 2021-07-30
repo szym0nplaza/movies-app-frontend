@@ -15,7 +15,7 @@ export default function ActorSettings() {
 
   useEffect(async () => {
     const responseData = await fetchData(
-      `http://127.0.0.1:8000/api/actor-details/${slug}/`
+      `http://${process.env.REACT_APP_API_URL}/api/actor-details/${slug}/`
     );
     setResponse(responseData);
   }, []);
@@ -39,7 +39,7 @@ export default function ActorSettings() {
     e.preventDefault();
 
     const responseData = await putData(
-      `http://127.0.0.1:8000/api/manage-actor/${slug}/`,
+      `http://${process.env.REACT_APP_API_URL}/api/manage-actor/${slug}/`,
       {
         name: name,
         date_of_birth: date,
@@ -56,7 +56,7 @@ export default function ActorSettings() {
 
   const deleteActor = async () => {
     const responseData = await deleteData(
-      `http://127.0.0.1:8000/api/manage-actor/${slug}/`
+      `http://${process.env.REACT_APP_API_URL}/api/manage-actor/${slug}/`
     );
     setIsDeleted(true);
   };
@@ -82,7 +82,7 @@ export default function ActorSettings() {
         style={{ display: "flex", flexDirection: "column" }}
       >
         <img
-          src={`http://127.0.0.1:8000${image}/`}
+          src={`http://${process.env.REACT_APP_API_URL}${image}/`}
           style={{ marginBottom: "1rem" }}
         />
       </Form.Group>

@@ -11,7 +11,9 @@ export default function ActorsGrid() {
 
   useEffect(() => {
     const data = async () => {
-      const actor = await fetchData("http://127.0.0.1:8000/api/actors/");
+      const actor = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/actors/`
+      );
       setActors(actor);
     };
     data();

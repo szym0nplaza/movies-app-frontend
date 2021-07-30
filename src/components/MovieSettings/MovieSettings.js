@@ -22,10 +22,10 @@ export default function MovieSettings() {
 
   useEffect(() => {
     const data = async () => {
-      const actor = await fetchData("http://127.0.0.1:8000/api/actors/");
-      const director = await fetchData("http://127.0.0.1:8000/api/directors/");
+      const actor = await fetchData(`http://${process.env.REACT_APP_API_URL}/api/actors/`);
+      const director = await fetchData(`http://${process.env.REACT_APP_API_URL}/api/directors/`);
       const detail = await fetchData(
-        `http://127.0.0.1:8000/api/movie-details/${slug}`
+        `http://${process.env.REACT_APP_API_URL}/api/movie-details/${slug}`
       );
       setActors(actor);
       setDirectors(director);
@@ -67,7 +67,7 @@ export default function MovieSettings() {
     formData.append("actors", chosenActors);
 
     const responseData = await putFormData(
-      `http://127.0.0.1:8000/api/manage-movie/${slug}/`,
+      `http://${process.env.REACT_APP_API_URL}/api/manage-movie/${slug}/`,
       formData
     );
     setResponse(responseData);
@@ -89,7 +89,7 @@ export default function MovieSettings() {
 
   const deleteMovie = async () => {
     const responseData = await deleteData(
-      `http://127.0.0.1:8000/api/manage-movie/${slug}/`
+      `http://${process.env.REACT_APP_API_URL}/api/manage-movie/${slug}/`
     );
     setResponse(responseData);
   };
@@ -115,7 +115,7 @@ export default function MovieSettings() {
         style={{ display: "flex", flexDirection: "column" }}
       >
         <img
-          src={`http://127.0.0.1:8000${image}/`}
+          src={`http://${process.env.REACT_APP_API_URL}${image}/`}
           style={{ marginBottom: "1rem" }}
         />
       </Form.Group>

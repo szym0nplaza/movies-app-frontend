@@ -14,10 +14,13 @@ export default function LoginPage() {
 
   const validate = async (e) => {
     e.preventDefault();
-    const responseData = await postData("http://127.0.0.1:8000/api/login/", {
-      email: email,
-      password: password,
-    });
+    const responseData = await postData(
+      `http://${process.env.REACT_APP_API_URL}/api/login/`,
+      {
+        email: email,
+        password: password,
+      }
+    );
     if (responseData !== "Invalid data.") {
       userDispatch({ type: "SET_USER", payload: responseData });
       setCheck(responseData);

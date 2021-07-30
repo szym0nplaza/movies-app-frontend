@@ -28,7 +28,7 @@ export default function MovieDetailsCard() {
 
   const awaitStars = async (title) => {
     const starsData = await fetchData(
-      `http://127.0.0.1:8000/api/get-ratings/${title}/`
+      `http://${process.env.REACT_APP_API_URL}/api/get-ratings/${title}/`
     );
     setStars(starsData);
   };
@@ -36,10 +36,10 @@ export default function MovieDetailsCard() {
   useEffect(() => {
     const data = async () => {
       const detail = await fetchData(
-        `http://127.0.0.1:8000/api/movie-details/${slug}`
+        `http://${process.env.REACT_APP_API_URL}/api/movie-details/${slug}`
       );
       const director = await fetchData(
-        `http://127.0.0.1:8000/api/get-director-id/${detail.movie.director}/`
+        `http://${process.env.REACT_APP_API_URL}/api/get-director-id/${detail.movie.director}/`
       );
       setActorsTab(detail.actors);
       setDetails(detail.movie);
@@ -65,7 +65,7 @@ export default function MovieDetailsCard() {
 
   const handleRating = async () => {
     setMyStars(stars);
-    const response = await postData("http://127.0.0.1:8000/api/rate-movie/", {
+    const response = await postData(`http://${process.env.REACT_APP_API_URL}/api/rate-movie/`, {
       email: user.email,
       amount: stars,
       title: details.title,
@@ -95,7 +95,7 @@ export default function MovieDetailsCard() {
       <Card.Img
         style={{ objectFit: "cover", height: "30rem" }}
         variant="top"
-        src={`http://127.0.0.1:8000${image}`}
+        src={`http://${process.env.REACT_APP_API_URL}${image}`}
       />
       <Card.Body>
         {response ? (
