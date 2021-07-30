@@ -11,7 +11,7 @@ export default function ManageUsers() {
 
   useEffect(async () => {
     const response = await fetchData(
-      `http://127.0.0.1:8000/api/user-details/${slug}/`
+      `http://${process.env.REACT_APP_API_URL}/api/user-details/${slug}/`
     );
     setUser(response);
   }, []);
@@ -31,7 +31,7 @@ export default function ManageUsers() {
 
   const deleteUser = async () => {
     const response = await deleteData(
-      `http://127.0.0.1:8000/api/manage-user/${slug}/`
+      `http://${process.env.REACT_APP_API_URL}/api/manage-user/${slug}/`
     );
     setStatus(response);
   };

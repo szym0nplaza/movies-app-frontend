@@ -16,7 +16,7 @@ export default function AddDirector() {
     formData.append("image", image);
 
     const responseData = await postFormData(
-      "http://127.0.0.1:8000/api/add-director/",
+      `http://${process.env.REACT_APP_API_URL}/api/add-director/`,
       formData
     );
     setResponse(responseData);

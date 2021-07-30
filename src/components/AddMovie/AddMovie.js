@@ -18,8 +18,12 @@ export default function AddMovie() {
 
   useEffect(() => {
     const data = async () => {
-      const actor = await fetchData("http://127.0.0.1:8000/api/actors/");
-      const director = await fetchData("http://127.0.0.1:8000/api/directors/");
+      const actor = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/actors/`
+      );
+      const director = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/directors/`
+      );
       setActors(actor);
       setDirectors(director);
     };
@@ -37,7 +41,7 @@ export default function AddMovie() {
     formData.append("actors", chosenActors);
 
     const responseData = await postFormData(
-      "http://127.0.0.1:8000/api/add-movie/",
+      `http://${process.env.REACT_APP_API_URL}/api/add-movie/`,
       formData
     );
     setResponse(responseData);

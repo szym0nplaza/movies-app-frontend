@@ -7,7 +7,9 @@ export default function UsersGrid() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const data = async () => {
-      const user = await fetchData("http://127.0.0.1:8000/api/get-users/");
+      const user = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/get-users/`
+      );
       setUsers(user);
     };
     data();

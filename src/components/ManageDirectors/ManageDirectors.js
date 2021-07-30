@@ -7,7 +7,9 @@ export default function ManageDirectors() {
   const [directors, setDirectors] = useState([]);
   useEffect(() => {
     const data = async () => {
-      const director = await fetchData("http://127.0.0.1:8000/api/directors/");
+      const director = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/directors/`
+      );
       setDirectors(director);
     };
     data();

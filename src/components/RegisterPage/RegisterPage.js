@@ -19,11 +19,14 @@ export default function RegisterPage() {
       return null;
     }
     e.preventDefault();
-    const responseData = await postData("http://127.0.0.1:8000/api/register/", {
-      email: email,
-      password: password,
-      password2: password2,
-    });
+    const responseData = await postData(
+      `http://${process.env.REACT_APP_API_URL}/api/register/`,
+      {
+        email: email,
+        password: password,
+        password2: password2,
+      }
+    );
     setResposne(responseData);
   };
 

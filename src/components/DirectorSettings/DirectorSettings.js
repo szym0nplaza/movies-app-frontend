@@ -15,7 +15,7 @@ export default function DirectorSettings() {
 
   useEffect(async () => {
     const responseData = await fetchData(
-      `http://127.0.0.1:8000/api/director-details/${slug}/`
+      `http://${process.env.REACT_APP_API_URL}/api/director-details/${slug}/`
     );
     setResponse(responseData);
   }, []);
@@ -39,7 +39,7 @@ export default function DirectorSettings() {
     e.preventDefault();
 
     const responseData = await putData(
-      `http://127.0.0.1:8000/api/manage-director/${slug}/`,
+      `http://${process.env.REACT_APP_API_URL}/api/manage-director/${slug}/`,
       {
         name: name,
         date_of_birth: date,
@@ -58,7 +58,7 @@ export default function DirectorSettings() {
 
   const deleteActor = async () => {
     const responseData = await deleteData(
-      `http://127.0.0.1:8000/api/manage-director/${slug}/`
+      `http://${process.env.REACT_APP_API_URL}/api/manage-director/${slug}/`
     );
     setIsDeleted(true);
   };
@@ -84,7 +84,7 @@ export default function DirectorSettings() {
         style={{ display: "flex", flexDirection: "column" }}
       >
         <img
-          src={`http://127.0.0.1:8000${image}/`}
+          src={`http://${process.env.REACT_APP_API_URL}${image}/`}
           style={{ marginBottom: "1rem" }}
         />
       </Form.Group>
