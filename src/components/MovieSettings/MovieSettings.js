@@ -22,8 +22,12 @@ export default function MovieSettings() {
 
   useEffect(() => {
     const data = async () => {
-      const actor = await fetchData(`http://${process.env.REACT_APP_API_URL}/api/actors/`);
-      const director = await fetchData(`http://${process.env.REACT_APP_API_URL}/api/directors/`);
+      const actor = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/actors/`
+      );
+      const director = await fetchData(
+        `http://${process.env.REACT_APP_API_URL}/api/directors/`
+      );
       const detail = await fetchData(
         `http://${process.env.REACT_APP_API_URL}/api/movie-details/${slug}`
       );
@@ -46,7 +50,13 @@ export default function MovieSettings() {
   }, [details]);
 
   if (!details) {
-    return <Spinner animation="border" variant="info" />;
+    return (
+      <Spinner
+        style={{ margin: "3rem auto" }}
+        animation="border"
+        variant="info"
+      />
+    );
   }
 
   if (response === "Deleted.")
