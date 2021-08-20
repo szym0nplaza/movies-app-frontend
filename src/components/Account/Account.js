@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import userContext from "../../context/userContext";
 import AlertView from "../AlertView/AlertView";
-import { postData, putData } from "../../services/client";
+import { postData, putData, fetchData } from "../../services/client";
 import { useHistory } from "react-router-dom";
 
 export default function Account() {
@@ -48,12 +48,30 @@ export default function Account() {
     }
   };
 
+  const toggleMovies = async () => {
+    const response = await fetchData(
+      `http://${process.env.REACT_APP_API_URL}/api/toggle-movies/`
+    );
+    console.log(response);
+  };
+
   const adminCheck = () => {
     if (user === null) {
       return false;
     }
     if (user.is_admin) {
-      return <AlertView type="success" msg="You have admin status!" />;
+      return (
+        <>
+          <AlertView type="success" msg="You have admin status!" />
+          <Button
+            variant="outline-success"
+            style={{ width: "100%" }}
+            onClick={toggleMovies}
+          >
+            Get movies
+          </Button>
+        </>
+      );
     }
     if (!user.is_admin) {
       return (

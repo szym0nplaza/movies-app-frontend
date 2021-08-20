@@ -37,6 +37,7 @@ export default function DirectorDetailsCard() {
       <Card.Img
         variant="top"
         src={`http://${process.env.REACT_APP_API_URL}${image}`}
+        style={{ maxHeight: "40rem", objectFit: "cover" }}
       />
       <Card.Body>
         <Card.Title style={{ fontSize: "2rem", margin: "0 0 1rem 1rem" }}>

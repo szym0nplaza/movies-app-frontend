@@ -58,7 +58,7 @@ export default function MovieDetailsCard() {
       <Spinner
         animation="border"
         variant="info"
-        style={{ margin: "3rem auto" }}
+        style={{ margin: "3rem auto", display: "block" }}
       />
     );
   }

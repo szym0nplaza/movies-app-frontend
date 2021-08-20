@@ -10,15 +10,18 @@ export default function RegisterPage() {
   const [password2, setPassword2] = useState("");
   const [resposne, setResposne] = useState(null);
   const [checkbox, setCheckbox] = useState(true);
+  const [empty, setEmpty] = useState(false);
 
   const validate = async (e) => {
+    e.preventDefault();
     if (!checkbox) {
       return null;
     }
-    if (password === "") {
-      return null;
+    if (password === "" && email === "") {
+      setEmpty(true);
+    } else {
+      setEmpty(false);
     }
-    e.preventDefault();
     const responseData = await postData(
       `http://${process.env.REACT_APP_API_URL}/api/register/`,
       {
@@ -27,6 +30,7 @@ export default function RegisterPage() {
         password2: password2,
       }
     );
+    console.log(responseData);
     setResposne(responseData);
   };
 
@@ -50,7 +54,7 @@ export default function RegisterPage() {
         </Alert>
       );
     }
-    if (resposne === "Invalid data.") {
+    if (resposne === "Invalid data." && empty === false) {
       return <AlertView type="danger" msg="User with given email exists!" />;
     }
     if (!checkbox) {
@@ -72,6 +76,7 @@ export default function RegisterPage() {
     >
       {checkPass()}
       {registerInfo()}
+      {empty ? <AlertView type="danger" msg="Fill in register form!" /> : null}
       <Form.Label
         style={{
           fontSize: "2rem",

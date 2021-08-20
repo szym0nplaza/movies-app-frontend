@@ -3,6 +3,7 @@ import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import { postFormData, fetchData } from "../../services/client";
 import ActorTile from "./ActorTile";
 import InfoButton from "../InfoButton/InfoButton";
+import { useHistory } from "react-router-dom";
 
 export default function AddMovie() {
   const [directors, setDirectors] = useState([]);
@@ -15,6 +16,7 @@ export default function AddMovie() {
   const [date, setDate] = useState("");
   const [director, setDirector] = useState("");
   const [response, setResponse] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const data = async () => {
@@ -50,7 +52,7 @@ export default function AddMovie() {
   const handleSuccess = () => {
     if (response === null) return;
     if (response === "Passed.") {
-      return <Alert variant="success">Movie added successfully!</Alert>;
+      history.push("/");
     }
     if (response === "Movie exists.") {
       return <Alert variant="danger">Movie exists!</Alert>;

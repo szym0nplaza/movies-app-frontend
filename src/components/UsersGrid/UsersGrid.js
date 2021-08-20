@@ -26,7 +26,7 @@ export default function UsersGrid() {
           as={Link}
           to={`/user-settings/${user.id}`}
         >
-          {user.email}
+          {user.email !== "" ? user.email : "Admin"}
         </ListGroup.Item>
       ))}
     </ListGroup>

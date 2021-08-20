@@ -32,7 +32,11 @@ export default function DirectorDetailsCard() {
   const { name, image, date_of_birth } = details.actor_info;
   return (
     <Card style={{ maxWidth: "50rem", margin: "2rem auto" }}>
-      <Card.Img variant="top" src={`http://${process.env.REACT_APP_API_URL}${image}`} />
+      <Card.Img
+        variant="top"
+        src={`http://${process.env.REACT_APP_API_URL}${image}`}
+        style={{ maxHeight: "40rem", objectFit: "cover" }}
+      />
       <Card.Body>
         <Card.Title style={{ fontSize: "2rem", margin: "0 0 1rem 1rem" }}>
           {name}
